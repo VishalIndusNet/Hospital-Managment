@@ -7,4 +7,5 @@ import com.hospital.hospitalManagement.model.Patient;
 public interface PatientRepo  extends JpaRepository<Patient, Long> {
 
 
+
 }

@@ -1,10 +1,7 @@
 package com.hospital.hospitalManagement.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,9 +13,12 @@ public class Doctor {
 
 	  @Id
 	  @GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String name;
+	private Character sex;
 	private String specialization;
 
+	@Column(name = "is_present")
+	private  Boolean isPresent;
 }
 

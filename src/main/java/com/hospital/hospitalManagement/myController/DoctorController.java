@@ -2,21 +2,18 @@ package com.hospital.hospitalManagement.myController;
 
 import java.util.List;
 import java.util.Optional;
-
+import com.hospital.hospitalManagement.service.DoctorService;
 import com.hospital.hospitalManagement.model.Doctor;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.hospital.hospitalManagement.service.DoctorService;
+
 
 
 @RestController
@@ -39,6 +36,36 @@ public class DoctorController {
 		return ResponseEntity.of(doctor);
 
 	}
+	@GetMapping("/by-specialization")
+	public ResponseEntity<List<Doctor>> getDoctorByspecialization(@RequestParam("specialization") String specialization){
+		List<Doctor> doctors= doctorService.getDoctorBySpecialization(specialization);
+		return ResponseEntity.ok(doctors);
+	}
+
+	@GetMapping("/doctors/present")
+	public ResponseEntity<List<Doctor>> getDoctorsByPresent(@RequestParam("present") Boolean isPresent) {
+		List<Doctor> doctors = doctorService.getDoctorsByPresent(isPresent);
+		return ResponseEntity.ok(doctors);
+	}
+
+	@GetMapping("doctors/by-specialization-and-present")
+	public ResponseEntity<List<Doctor>> getDoctorsBySpecializationAndPresent(
+			@RequestParam String specialization,
+			@RequestParam("present") Boolean isPresent){
+		List<Doctor>  doctors = doctorService.getDoctorsBySpecializationAndPresent(specialization,isPresent);
+		return ResponseEntity.ok(doctors);
+	}
+
+	@GetMapping("/doctors/by-specialization-and-present-page")
+	public ResponseEntity<Page<Doctor>> getDoctorBySpecialization_present_page(
+			@RequestParam String specialization,
+			@RequestParam("present") Boolean isPresent,
+			@RequestParam("page") int page,
+			@RequestParam("size") int size){
+		Page<Doctor> doctors = doctorService.getDoctorBySpecialization_Present_page(specialization, isPresent, page, size);
+		return ResponseEntity.ok(doctors);
+	}
+
 
 	@PostMapping("/doctor")
 	public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctorDTO) {
@@ -64,5 +91,4 @@ public class DoctorController {
 		return ResponseEntity.noContent().build();
 
 	}
-
 }

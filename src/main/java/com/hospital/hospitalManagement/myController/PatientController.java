@@ -3,6 +3,7 @@ package com.hospital.hospitalManagement.myController;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import com.hospital.hospitalManagement.model.Patient;
 import com.hospital.hospitalManagement.service.PatientService;
 
 @RestController
-
+@RequiredArgsConstructor
 public class PatientController {
 
 	@Autowired
@@ -42,6 +43,7 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savePatient);
     }
 
+
     @PutMapping("/patient/{id}")
     public ResponseEntity<Void> updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
         if (patientService.getPatientById(id) != null) {
@@ -51,6 +53,7 @@ public class PatientController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
     }
 
     @DeleteMapping("/patient/{id}")

@@ -17,8 +17,9 @@ public class Patient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String name;
+	private Character sex;
 	private String contactName;
 	private String admitDate;
 	private String dischargeDate;

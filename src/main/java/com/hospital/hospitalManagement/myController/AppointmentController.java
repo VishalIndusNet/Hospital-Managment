@@ -28,19 +28,19 @@ public class AppointmentController {
         return appointmentService.getAllAppointments();
     }
 
-    @GetMapping("/appointments/{id}")
+    @GetMapping("/appointment/{id}")
     public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id) {
         Optional<Appointment> appointment= appointmentService.getAppointmentById(id);
         return ResponseEntity.of(appointment);
     }
 
-    @PostMapping("appointments")
+    @PostMapping("appointment")
     public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
         Appointment saveAppointment =appointmentService.saveAppointment(appointment);
         return  ResponseEntity.status(HttpStatus.CREATED).body(saveAppointment);
     }
 
-    @PutMapping("/appointments/{id}")
+    @PutMapping("/appointment/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         if (appointmentService.getAppointmentById(id) != null) {
             appointment.setId(id);
@@ -51,11 +51,12 @@ public class AppointmentController {
         }
     }
 
-    @DeleteMapping("/appointments/{id}")
+    @DeleteMapping("/appointment/{id}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.noContent().build();
     }
+
 
 
 }
