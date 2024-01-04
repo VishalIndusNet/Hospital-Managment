@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,18 +45,6 @@ public class AppointmentController {
     }
 
 
-//    @PostMapping
-//    public ResponseEntity<Void> addAppointment(@Valid @RequestBody Appointment appointment, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            // Handle validation errors
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-
-//        appointmentService.saveAppointment(appointment);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
-
-
     @PutMapping("/appointment/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         if (appointmentService.getAppointmentById(id) != null) {
@@ -74,7 +61,4 @@ public class AppointmentController {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }
